@@ -44,6 +44,12 @@ export const useDecksStore = defineStore('decks', () => {
     return deck
   }
 
+  function importDeck(deck: Deck): Deck {
+    decks.value.push(deck)
+    persist()
+    return deck
+  }
+
   function renameDeck(deckId: string, name: string) {
     const deck = findDeck(deckId)
     if (!deck) return
@@ -130,6 +136,7 @@ export const useDecksStore = defineStore('decks', () => {
   return {
     decks,
     createDeck,
+    importDeck,
     renameDeck,
     deleteDeck,
     addCard,
