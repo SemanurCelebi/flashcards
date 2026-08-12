@@ -1,0 +1,1 @@
+import{_ as e,g as t,p as n,u as r}from"./index-DH1Wdi42.js";var i=t({__name:`StudyView`,props:{id:{}},setup(t){return(t,i)=>(e(),n(`div`,null,[...i[0]||=[r(`h1`,{class:`text-2xl font-semibold`},`Study`,-1)]]))}});export{i as default};
