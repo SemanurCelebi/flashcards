@@ -7,12 +7,13 @@ function makeId(): string {
   return crypto.randomUUID()
 }
 
-function makeCard(term: string, meaning: string): Card {
+function makeCard(term: string, meaning: string, notes?: string): Card {
   const now = new Date().toISOString()
   return {
     id: makeId(),
     term,
     meaning,
+    ...(notes ? { notes } : {}),
     progress: { status: 'new', lastReviewedAt: null },
     createdAt: now,
   }
@@ -56,10 +57,10 @@ export const useDecksStore = defineStore('decks', () => {
     persist()
   }
 
-  function addCard(deckId: string, term: string, meaning: string): Card | undefined {
+  function addCard(deckId: string, term: string, meaning: string, notes?: string): Card | undefined {
     const deck = findDeck(deckId)
     if (!deck) return undefined
-    const card = makeCard(term, meaning)
+    const card = makeCard(term, meaning, notes)
     deck.cards.push(card)
     deck.updatedAt = new Date().toISOString()
     persist()
@@ -76,14 +77,26 @@ export const useDecksStore = defineStore('decks', () => {
     return newCards
   }
 
-  function updateCard(deckId: string, cardId: string, term: string, meaning: string) {
+  function updateCard(
+    deckId: string,
+    cardId: string,
+    term: string,
+    meaning: string,
+    notes?: string,
+  ): Card | undefined {
     const deck = findDeck(deckId)
     const card = deck?.cards.find((c) => c.id === cardId)
-    if (!deck || !card) return
+    if (!deck || !card) return undefined
     card.term = term
     card.meaning = meaning
+    if (notes) {
+      card.notes = notes
+    } else {
+      delete card.notes
+    }
     deck.updatedAt = new Date().toISOString()
     persist()
+    return card
   }
 
   function deleteCard(deckId: string, cardId: string) {

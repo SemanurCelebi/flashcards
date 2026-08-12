@@ -7,6 +7,7 @@ export interface Card {
   id: string
   term: string
   meaning: string
+  notes?: string
   progress: CardProgress
   createdAt: string
 }
