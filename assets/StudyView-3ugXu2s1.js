@@ -1,1 +1,0 @@
-import{i as e,n as t,r as n,t as r}from"./index-nMZoZZEv.js";var i=n({__name:`StudyView`,props:{id:{}},setup(n){return(n,i)=>(e(),t(`div`,null,[...i[0]||=[r(`h1`,{class:`text-2xl font-semibold`},`Study`,-1)]]))}});export{i as default};
