@@ -2,6 +2,7 @@ import { defineStore } from 'pinia'
 import { ref } from 'vue'
 import type { Card, Deck } from '@/types/deck'
 import { loadDecks, saveDecks } from '@/lib/storage'
+import { markKnown, markLearning, MIN_BOX } from '@/lib/srs'
 
 function makeId(): string {
   return crypto.randomUUID()
@@ -14,7 +15,7 @@ function makeCard(term: string, meaning: string, notes?: string): Card {
     term,
     meaning,
     ...(notes ? { notes } : {}),
-    progress: { status: 'new', lastReviewedAt: null },
+    progress: { status: 'new', box: MIN_BOX, lastReviewedAt: null },
     createdAt: now,
   }
 }
@@ -117,8 +118,7 @@ export const useDecksStore = defineStore('decks', () => {
     const deck = findDeck(deckId)
     const card = deck?.cards.find((c) => c.id === cardId)
     if (!deck || !card) return
-    card.progress.status = 'known'
-    card.progress.lastReviewedAt = new Date().toISOString()
+    card.progress = markKnown(card.progress)
     deck.updatedAt = new Date().toISOString()
     persist()
   }
@@ -127,8 +127,7 @@ export const useDecksStore = defineStore('decks', () => {
     const deck = findDeck(deckId)
     const card = deck?.cards.find((c) => c.id === cardId)
     if (!deck || !card) return
-    card.progress.status = 'learning'
-    card.progress.lastReviewedAt = new Date().toISOString()
+    card.progress = markLearning(card.progress)
     deck.updatedAt = new Date().toISOString()
     persist()
   }

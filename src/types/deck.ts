@@ -1,5 +1,7 @@
 export interface CardProgress {
   status: 'new' | 'learning' | 'known'
+  /** Leitner-lite box, 1-3. Higher means more consistently known. */
+  box: number
   lastReviewedAt: string | null
 }
 
