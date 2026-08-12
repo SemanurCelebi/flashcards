@@ -1,1 +1,0 @@
-import{d as e,l as t,o as n,u as r}from"./index-Bvc29zs2.js";var i=r({__name:`ImportPdfView`,props:{id:{}},setup(r){return(r,i)=>(e(),t(`div`,null,[...i[0]||=[n(`h1`,{class:`text-2xl font-semibold`},`Import from PDF`,-1)]]))}});export{i as default};

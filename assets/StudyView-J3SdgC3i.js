@@ -1,0 +1,1 @@
+import{c as e,d as t,m as n,p as r}from"./index-yn9P-oRg.js";var i=r({__name:`StudyView`,props:{id:{}},setup(r){return(r,i)=>(n(),t(`div`,null,[...i[0]||=[e(`h1`,{class:`text-2xl font-semibold`},`Study`,-1)]]))}});export{i as default};
